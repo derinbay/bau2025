@@ -1,6 +1,6 @@
 import org.testng.annotations.Test;
 
-public class SearchTest {
+public class SearchTest extends BaseTest {
 
     @Test
     void testSearch() {
