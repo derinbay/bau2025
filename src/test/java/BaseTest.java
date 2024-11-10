@@ -32,28 +32,4 @@ public class BaseTest {
     void tearDown() {
         webDriver.quit();
     }
-
-    void click(By by) {
-        wait.until(ExpectedConditions.elementToBeClickable(by))
-                .click();
-    }
-
-    void click(WebElement element) {
-        wait.until(ExpectedConditions.elementToBeClickable(element))
-                .click();
-    }
-
-    String getText(By by) {
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(by))
-                .getText();
-    }
-
-    public boolean isElementExist(WebDriver webDriver, By by) {
-        try {
-            return webDriver.findElement(by)
-                    .isDisplayed();
-        } catch (StaleElementReferenceException | NoSuchElementException ex) {
-            return false;
-        }
-    }
 }
