@@ -8,7 +8,7 @@ public class SearchTest extends BaseTest {
 
     @Test
     void testSearch() {
-        HomePage homePage = new HomePage(webDriver, wait);
+        HomePage homePage = new HomePage(webDriver);
         homePage.sendKeys(By.xpath("//input[@data-testid='suggestion']"), Consts.KEYWORD + ENTER);
         String text = homePage.getText(By.xpath("//div[@class='dscrptn dscrptn-V2']/h1"));
         Assert.assertEquals(text, Consts.KEYWORD);

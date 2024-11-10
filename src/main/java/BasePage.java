@@ -2,17 +2,21 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
+
 public class BasePage {
 
     WebDriver webDriver;
-    WebDriverWait wait;
+
 
     void click(By by) {
+        WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(3));
         wait.until(ExpectedConditions.elementToBeClickable(by))
                 .click();
     }
 
-    void click(WebElement element, WebDriverWait wait) {
+    void click(WebElement element) {
+        WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(3));
         wait.until(ExpectedConditions.elementToBeClickable(element))
                 .click();
     }
@@ -23,10 +27,12 @@ public class BasePage {
     }
 
     WebElement findElement(By by) {
+        WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(3));
         return wait.until(ExpectedConditions.visibilityOfElementLocated(by));
     }
 
     void sendKeys(By by, String textToEnter) {
+        WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(3));
         wait.until(ExpectedConditions.elementToBeClickable(by))
                 .sendKeys(textToEnter);
     }
