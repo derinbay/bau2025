@@ -6,17 +6,14 @@ import java.time.Duration;
 
 public class BasePage {
 
-    WebDriver webDriver;
-
-
     void click(By by) {
-        WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(3));
+        WebDriverWait wait = new WebDriverWait(BaseTest.getDriver(), Duration.ofSeconds(3));
         wait.until(ExpectedConditions.elementToBeClickable(by))
                 .click();
     }
 
     void click(WebElement element) {
-        WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(3));
+        WebDriverWait wait = new WebDriverWait(BaseTest.getDriver(), Duration.ofSeconds(3));
         wait.until(ExpectedConditions.elementToBeClickable(element))
                 .click();
     }
@@ -27,12 +24,12 @@ public class BasePage {
     }
 
     WebElement findElement(By by) {
-        WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(3));
+        WebDriverWait wait = new WebDriverWait(BaseTest.getDriver(), Duration.ofSeconds(3));
         return wait.until(ExpectedConditions.visibilityOfElementLocated(by));
     }
 
     void sendKeys(By by, String textToEnter) {
-        WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(3));
+        WebDriverWait wait = new WebDriverWait(BaseTest.getDriver(), Duration.ofSeconds(3));
         wait.until(ExpectedConditions.elementToBeClickable(by))
                 .sendKeys(textToEnter);
     }
@@ -44,5 +41,9 @@ public class BasePage {
         } catch (StaleElementReferenceException | NoSuchElementException ex) {
             return false;
         }
+    }
+
+    public String getCurrentUrl() {
+        return BaseTest.getDriver().getCurrentUrl();
     }
 }

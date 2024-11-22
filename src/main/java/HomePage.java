@@ -1,17 +1,15 @@
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 
 public class HomePage extends BasePage {
 
-    public HomePage(WebDriver webDriver) {
-        this.webDriver = webDriver;
-    }
+    public HomePage() {}
 
-    public void goToLogin() {
+    public LoginPage goToLogin() {
         click(By.className("user-login-container"));
+        return new LoginPage();
     }
 
-    public String getUserContainerText(WebDriver webDriver) {
+    public String getUserContainerText() {
         return getText(By.className("user-login-container"));
     }
 }

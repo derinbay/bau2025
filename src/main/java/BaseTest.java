@@ -1,5 +1,6 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -13,25 +14,30 @@ import static java.time.temporal.ChronoUnit.SECONDS;
 
 public class BaseTest {
 
-    WebDriver webDriver;
+    private static final ThreadLocal<WebDriver> webDriver = new ThreadLocal<>();
+
     By locator_buttonSubmit = By.className("submit");
+
+    public static WebDriver getDriver() {
+        return webDriver.get();
+    }
 
     @BeforeMethod
     void startUp() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--disable-notifications");
-        webDriver = new ChromeDriver(options);
-        webDriver.get("https://www.trendyol.com/");
+        webDriver.set(new ChromeDriver(options));
+        getDriver().get("https://www.trendyol.com/");
 
-        WebDriverWait wait = new WebDriverWait(webDriver, Duration.of(3, SECONDS));
-        wait.until(ExpectedConditions.elementToBeClickable(By.className("homepage-popup-gender")))
-                .click();
-        //        WebElement acceptButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("onetrust-accept-btn-handler")));
-        //        acceptButton.click();
+        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.of(3, SECONDS));
+        WebElement acceptButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("onetrust-accept-btn-handler")));
+        acceptButton.click();
+        //wait.until(ExpectedConditions.elementToBeClickable(By.className("homepage-popup-gender")))
+        //        .click();
     }
 
     @AfterMethod
     void tearDown() {
-        webDriver.quit();
+        getDriver().quit();
     }
 }
