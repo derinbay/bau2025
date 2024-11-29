@@ -30,4 +30,14 @@ public class LoginTest extends BaseTest {
         String currentUrl = loginPage.getCurrentUrl();
         assertEquals(currentUrl, Consts.EXPECTED_LOGIN_REDIRECTION_URL);
     }
+
+
+    /**
+     * 1- By.id("logo")
+     * 2- By.className("badge-enabled")
+     * By.className("product-card-images-indicator")
+     * By.className("badge-enabled")
+     * By.cssSelector(".badge-enabled.product-card-images-indicator")
+     *
+     * */
 }
