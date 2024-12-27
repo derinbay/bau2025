@@ -29,12 +29,17 @@ public class BaseTest {
     void startUp() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--disable-notifications");
-//        webDriver.set(new ChromeDriver(options));
-        try {
-            webDriver.set(new RemoteWebDriver(new URL("http://172.20.10.2:4444"), options));
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
+
+        if (isRemote()) {
+            try {
+                webDriver.set(new RemoteWebDriver(new URL("http://10.0.18.248:4444"), options));
+            } catch (MalformedURLException e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            webDriver.set(new ChromeDriver(options));
         }
+
         getDriver().get("https://www.trendyol.com/");
 
         WebDriverWait wait = new WebDriverWait(getDriver(), Duration.of(3, SECONDS));
@@ -49,5 +54,9 @@ public class BaseTest {
         getDriver().quit();
     }
 
-    //hw: local ve remote için parametrik bir yapı
+    public static boolean isRemote() {
+        return java.util.Optional.ofNullable(System.getProperties().getProperty("remote"))
+                .map(Boolean::parseBoolean)
+                .orElse(false);
+    }
 }
